@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SongInfo songData;
     [SerializeField] private GraphicRaycaster raycaster;
     [SerializeField] private EventSystem eventSystem;
+    [SerializeField] private Image decorImage;
 
     private float secondPerBeat;
     private int score = 0;
@@ -123,6 +124,7 @@ public class GameManager : MonoBehaviour
                 Tile tile = result.gameObject.GetComponent<Tile>();
                 if (tile != null)
                 {
+                    StartCoroutine(DecorEffect());
                     tile.OnHitTile(checkPointLine.transform.position.y);
                     hitTile = true;
                     break;
@@ -208,6 +210,16 @@ public class GameManager : MonoBehaviour
         bonusText.gameObject.SetActive(true);
         yield return new WaitForSeconds(1.5f);
         bonusText.gameObject.SetActive(false);
+    }
+
+    IEnumerator DecorEffect()
+    {
+        Color currentColor = decorImage.color;
+        currentColor.a = 1f;
+        decorImage.color = currentColor;
+        yield return new WaitForSeconds(.5f);
+        currentColor.a = .667f;
+        decorImage.color = currentColor;
     }
 
     public void GameOver()

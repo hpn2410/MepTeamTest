@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.6666667}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2700,6 +2700,7 @@ MonoBehaviour:
   songData: {fileID: 11400000, guid: 07dfde5e700df0f49bfcbc94d5721dad, type: 2}
   raycaster: {fileID: 885299506}
   eventSystem: {fileID: 2011969436}
+  decorImage: {fileID: 61602563}
 --- !u!114 &2043810548
 MonoBehaviour:
   m_ObjectHideFlags: 0
