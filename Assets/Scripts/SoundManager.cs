@@ -40,6 +40,9 @@ public class SoundManager : MonoBehaviour
         gamePlayAudio.clip = clip;
 
         if(!gamePlayAudio.isPlaying)
+        {
             gamePlayAudio.Play();
+            gamePlayAudio.loop = true;
+        }
     }
 }

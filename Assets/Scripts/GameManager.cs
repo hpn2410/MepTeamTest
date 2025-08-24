@@ -154,6 +154,7 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(EnableResultText());
         StartCoroutine(EnableScoreText());
+        
 
         int point = 0;
         int resultPoint;
@@ -193,31 +194,35 @@ public class GameManager : MonoBehaviour
         bonusText.text = "x" + bonus;
         resultText.text = result;
 
-        if (bonus != 0)
-            StartCoroutine(EnableBonusText());
-        else
-            bonusText.gameObject.SetActive(false);
+        StartCoroutine(EnableBonusText());
     }
 
     IEnumerator EnableScoreText()
     {
         scoreText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(.5f);
         scoreText.gameObject.SetActive(false);
     }
 
     IEnumerator EnableResultText()
     {
         resultText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(.5f);
         resultText.gameObject.SetActive(false);
     }
 
     IEnumerator EnableBonusText()
     {
-        bonusText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(1.5f);
-        bonusText.gameObject.SetActive(false);
+        if (bonus != 0)
+        {
+            bonusText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(.5f);
+            bonusText.gameObject.SetActive(false);
+        }
+        else
+        {
+            bonusText.gameObject.SetActive(false);
+        }
     }
 
     IEnumerator DecorEffect()
