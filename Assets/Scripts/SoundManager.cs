@@ -6,7 +6,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
     [Header("AudioSource")]
-    public AudioSource cupidAudio;
+    public AudioSource gamePlayAudio;
     [Header("SoundEffect")]
     public AudioSource correctAudio;
     public AudioSource wrongAudio;
@@ -33,5 +33,13 @@ public class SoundManager : MonoBehaviour
     {
         if(soundToStop.isPlaying)
             soundToStop.Stop();
+    }
+
+    public void PlaySoundAudioClip(AudioClip clip)
+    {
+        gamePlayAudio.clip = clip;
+
+        if(!gamePlayAudio.isPlaying)
+            gamePlayAudio.Play();
     }
 }

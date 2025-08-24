@@ -32,11 +32,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI resultText;
     [SerializeField] private TextMeshProUGUI bonusText;
     [Header("Other Properties")]
-    [SerializeField] private float spawnTileSpeed;
+    [SerializeField] private float spawnTileSpeed; // per minutes (spawnTileSpeed % 60 = 0)
     [SerializeField] private SongInfo songData;
     [SerializeField] private GraphicRaycaster raycaster;
     [SerializeField] private EventSystem eventSystem;
     [SerializeField] private Image decorImage;
+    [Header("Difficulty")]
+    [SerializeField] private float baseFallSpeed; // fallSpeed default value
+    [SerializeField] private float fallSpeedIncrement; // increase fallSpeed
+    [SerializeField] private float spawnSpeedDecrement; // spawn tile
+    [SerializeField] private int scoreTileThreshold; // score mark to increase the difficulty
+    [SerializeField] private int scoreSpawnThreshold; // score mark to increase the difficulty
 
     private float secondPerBeat;
     private int score = 0;
@@ -78,8 +84,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SoundManager.Instance.PlaySound(SoundManager.Instance.cupidAudio);
-        secondPerBeat = spawnTileSpeed / songData.bpm;
+        SoundManager.Instance.PlaySoundAudioClip(songData.audioClip);
+        //secondPerBeat = spawnTileSpeed / songData.bpm;
         StartCoroutine(SpawnTileObject());
     }
 
@@ -99,7 +105,7 @@ public class GameManager : MonoBehaviour
                 tileComp.ResetTile();
             }
 
-            yield return new WaitForSeconds(secondPerBeat);
+            yield return new WaitForSeconds(GetCurrentSpawnDelay());
         }
     }
 
@@ -189,6 +195,8 @@ public class GameManager : MonoBehaviour
 
         if (bonus != 0)
             StartCoroutine(EnableBonusText());
+        else
+            bonusText.gameObject.SetActive(false);
     }
 
     IEnumerator EnableScoreText()
@@ -222,10 +230,27 @@ public class GameManager : MonoBehaviour
         decorImage.color = currentColor;
     }
 
+    public float GetCurrentFallSpeed()
+    {
+        int step = score / scoreTileThreshold;
+        return baseFallSpeed + step * fallSpeedIncrement;
+    }
+
+    public float GetCurrentSpawnDelay()
+    {
+        int step = score / scoreSpawnThreshold;
+        float currentSpawnSpeed = spawnTileSpeed - step * spawnSpeedDecrement;
+
+        if (currentSpawnSpeed < 60f)
+            currentSpawnSpeed = 60f;
+
+        return currentSpawnSpeed / songData.bpm;
+    }
+
     public void GameOver()
     {
         gameOverPanel.SetActive(true);
-        SoundManager.Instance.StopSound(SoundManager.Instance.cupidAudio);
+        SoundManager.Instance.StopSound(SoundManager.Instance.gamePlayAudio);
     }
 
     public void OnPlayAgainBtnClicked()

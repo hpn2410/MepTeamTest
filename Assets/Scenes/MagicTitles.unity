@@ -243,7 +243,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1e25fcd6d6b6a1841b3cb912fc87738f, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -341,7 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c387eb5bec1c0248a9b3cf601cdb2b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cupidAudio: {fileID: 193276930}
+  gamePlayAudio: {fileID: 193276930}
   correctAudio: {fileID: 193276933}
   wrongAudio: {fileID: 193276932}
 --- !u!82 &193276932
@@ -2701,6 +2701,11 @@ MonoBehaviour:
   raycaster: {fileID: 885299506}
   eventSystem: {fileID: 2011969436}
   decorImage: {fileID: 61602563}
+  baseFallSpeed: 200
+  fallSpeedIncrement: 50
+  spawnSpeedDecrement: 60
+  scoreTileThreshold: 50
+  scoreSpawnThreshold: 100
 --- !u!114 &2043810548
 MonoBehaviour:
   m_ObjectHideFlags: 0

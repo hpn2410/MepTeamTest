@@ -12,7 +12,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private Sprite spriteDefault;
     [SerializeField] private float bouncePos;
 
-    private float fallSpeed = 200f;
+    private float fallSpeed;
     private bool isHit = false;
     private RectTransform tileRectTransform;
     private Image tileImage;
@@ -94,5 +94,7 @@ public class Tile : MonoBehaviour
             tileImage.color = Color.white;
             tileImage.sprite = spriteDefault;
         }
+
+        fallSpeed = GameManager.Instance.GetCurrentFallSpeed();
     }
 }
