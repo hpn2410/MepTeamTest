@@ -7,6 +7,9 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance;
     [Header("AudioSource")]
     public AudioSource cupidAudio;
+    [Header("SoundEffect")]
+    public AudioSource correctAudio;
+    public AudioSource wrongAudio;
 
     private void Awake()
     {
@@ -24,5 +27,11 @@ public class SoundManager : MonoBehaviour
     {
         if (!soundToPlay.isPlaying)
             soundToPlay.Play();
+    }
+
+    public void StopSound(AudioSource soundToStop)
+    {
+        if(soundToStop.isPlaying)
+            soundToStop.Stop();
     }
 }

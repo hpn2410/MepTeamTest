@@ -35,6 +35,7 @@ public class Tile : MonoBehaviour
         if (tileRectTransform.anchoredPosition.y < bouncePos)
         {
             GameManager.Instance.SetState(GameState.GameOver);
+            GameManager.Instance.GameOver();
         }
     }
 
@@ -55,6 +56,7 @@ public class Tile : MonoBehaviour
             GameManager.Instance.AddScore("Cool");
 
         StartCoroutine(HitTileEffect());
+        SoundManager.Instance.PlaySound(SoundManager.Instance.correctAudio);
     }
 
     IEnumerator HitTileEffect()

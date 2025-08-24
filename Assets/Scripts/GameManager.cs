@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 using UnityEngine.XR;
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviour
     //[SerializeField] private GameObject tilePrefabs;
     [SerializeField] private GameObject checkPointLine;
     [SerializeField] private GameObject[] spawnPoes;
+    [SerializeField] private GameObject gameOverPanel;
     [Header("Score")]
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI resultText;
@@ -33,7 +36,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SongInfo songData;
     [SerializeField] private GraphicRaycaster raycaster;
     [SerializeField] private EventSystem eventSystem;
-    
 
     private float secondPerBeat;
     private int score = 0;
@@ -137,7 +139,7 @@ public class GameManager : MonoBehaviour
     private void OnMissTile()
     {
         bonus = 0;
-        Debug.Log("Miss");
+        SoundManager.Instance.PlaySound(SoundManager.Instance.wrongAudio);
     }
 
     public void AddScore(string result)
@@ -206,5 +208,23 @@ public class GameManager : MonoBehaviour
         bonusText.gameObject.SetActive(true);
         yield return new WaitForSeconds(1.5f);
         bonusText.gameObject.SetActive(false);
+    }
+
+    public void GameOver()
+    {
+        gameOverPanel.SetActive(true);
+        SoundManager.Instance.StopSound(SoundManager.Instance.cupidAudio);
+    }
+
+    public void OnPlayAgainBtnClicked()
+    {
+        SceneManager.LoadScene("MagicTitles");
+    }
+
+    public void OnQuitGameBtnClicked()
+    {
+        UnityEditor.EditorApplication.isPlaying = false; // quit game in editor
+
+        Application.Quit(); // quit game in build
     }
 }
